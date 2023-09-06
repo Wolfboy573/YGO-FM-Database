@@ -51,10 +51,9 @@ function hasResult(card) {
 
 /**  Returns a new array with data for fusion monsters. */
 function cardWithFusions(card) {
-  let cardWithFusionData = card.Fusions.map((i) => {
+  return card.Fusions.map((i) => {
     return { card1: card, card2: getCardById(i._card2), result: getCardById(i._result) };
   });
-  return cardWithFusionData;
 }
 
 /**  Returns a new array with data for fusion monsters. */

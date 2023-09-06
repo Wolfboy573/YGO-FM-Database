@@ -17,91 +17,104 @@
 </head>
 
 <body class="polymerization">
-  <header class="header-container">
-    <nav class="header-nav">
-      <div class="header-nav-logo">
-        <a class="general-link" href="index.html">
-          <img class="image-logo" src="public/images/logo.png" alt="Yu-Gi-Oh! Forbidden Memories Logo" />
-        </a>
-      </div>
+<header class="header-container">
+  <nav class="header-nav">
+    <div class="header-nav-logo">
+      <a class="general-link" href="index.html">
+        <img class="image-logo" src="public/images/logo.png" alt="Yu-Gi-Oh! Forbidden Memories Logo" />
+      </a>
+    </div>
 
-      <div class="header-nav-navigation">
-        <ul class="header-nav-navigation-list">
-          <li class="header-nav-navigation-item">
-            <a class="header-nav-link" href="fusion-search.html">Fusion Search</a>
-          </li>
-          <li class="header-nav-navigation-item">
-            <a class="header-nav-link" href="deck-check.html">Deck Check</a>
-          </li>
-          <li class="header-nav-navigation-item">
-            <a class="header-nav-link" href="about.html">About</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+    <div class="header-nav-navigation">
+      <ul class="header-nav-navigation-list">
+        <li class="header-nav-navigation-item">
+          <a class="header-nav-link" href="fusion-search.html">Fusion Search</a>
+        </li>
+        <li class="header-nav-navigation-item">
+          <a class="header-nav-link" href="deck-check.html">Deck Check</a>
+        </li>
+        <li class="header-nav-navigation-item">
+          <a class="header-nav-link" href="about.html">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-  <main class="main-container">
-    <section class="search-container">
-      <div class="wrapper">
-        <div class="search-title">
-          <h2 class="main-title">SEARCH</h2>
-        </div>
-        <div class="search-input">
-          <div class="box-input">
-            <div class="content-item">
-              <input class="input-search" type="text" id="cardname" placeholder="Type the name of the card..." />
-            </div>
-            <div class="content-item btn-group-search">
-              <button type="button" class="btn search" id="search-name-btn">Search by name</button>
-              <button type="button" class="btn search" id="search-results-btn">Search for result</button>
-            </div>
-            <div class="content-item">
-              <button type="button" class="btn reset" id="reset-btn">RESET ALL</button>
-            </div>
+<main class="main-container">
+  <section class="search-container">
+    <div class="wrapper">
+      <div class="search-title">
+        <h2 class="main-title">SEARCH</h2>
+      </div>
+      <div class="search-input">
+        <div class="box-input">
+          <div class="content-item">
+            <input class="input-search" type="text" id="cardname" placeholder="Type the name of the card..." />
           </div>
-          <div class="box-card" id="info-card"></div>
+          <div class="content-item">
+            <input class="input-search" type="text" id="cardname2" placeholder="Type the name of second card...">
+          </div>
+          <div class="content-item">
+            <input class="input-search" type="text" id="cardname3" placeholder="Type the name of third card...">
+          </div>
+          <div class="content-item">
+            <input class="input-search" type="text" id="cardname4" placeholder="Type the name of forth card...">
+          </div>
+          <div class="content-item">
+            <input class="input-search" type="text" id="cardname5" placeholder="Type the name of fifth card...">
+          </div>
+          <div class="content-item btn-group-search">
+            <button type="button" class="btn search" id="search-name-btn">Search by name</button>
+            <button type="button" class="btn search" id="search-results-btn">Search for result</button>
+            <button type="button" class="btn search" id="search-fusions-in-hand-btn">Search for fusions in hand</button>
+          </div>
+          <div class="content-item">
+            <button type="button" class="btn reset" id="reset-btn">RESET ALL</button>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="box-card" id="info-card"></div>
+    </div>
+  </section>
 
-    <section class="results-container">
-      <div class="wrapper">
-        <div class="search-title">
-          <h2 class="main-title">RESULTS</h2>
-          <span id="search-msg"></span>
-        </div>
-
-        <div class="cards-collection" id="output"></div>
+  <section class="results-container">
+    <div class="wrapper">
+      <div class="search-title">
+        <h2 class="main-title">RESULTS</h2>
+        <span id="search-msg"></span>
       </div>
-    </section>
-  </main>
 
-  <footer class="footer-container">
-    <section class="footer-top">
-      <a class="general-link" href="https://github.com/falsepopsky/YGO-FM-Database/" rel="noopener noreferrer"
-        target="_blank">
-        <img loading="lazy" class="gh-logo" src="https://img.icons8.com/fluent/48/000000/github.png"
-          alt="GitHub Repo" />
-      </a>
-      <a class="general-link" href="index.html" rel="noopener noreferrer">
-        <img loading="lazy" class="millennium-pendant" src="public/images/item.png" alt="millennium pendant" />
-      </a>
-    </section>
-    <section class="footer-bottom">
-      <p>Yu-Gi-Oh! Forbidden Memories Database © 2021</p>
-    </section>
-  </footer>
+      <div class="cards-collection" id="output"></div>
+    </div>
+  </section>
+</main>
 
-  <script type="text/javascript" src="public/js/awesomplete.min.js"></script>
-  <script type="text/javascript" src="public/js/jquery-3.5.1.min.js"></script>
-  <script type="text/javascript" src="public/js/taffy.js"></script>
-  <script type="text/javascript" src="data/cards.js"></script>
-  <script type="text/javascript" src="data/equips.js"></script>
-  <script type="text/javascript" src="data/results.js"></script>
-  <script type="text/javascript" src="data/types_and_stars.js"></script>
-  <script type="text/javascript" src="public/js/functions.js"></script>
-  <script type="text/javascript" src="public/js/fusionSearch.js"></script>
+<footer class="footer-container">
+  <section class="footer-top">
+    <a class="general-link" href="https://github.com/falsepopsky/YGO-FM-Database/" rel="noopener noreferrer"
+       target="_blank">
+      <img loading="lazy" class="gh-logo" src="https://img.icons8.com/fluent/48/000000/github.png"
+           alt="GitHub Repo" />
+    </a>
+    <a class="general-link" href="index.html" rel="noopener noreferrer">
+      <img loading="lazy" class="millennium-pendant" src="public/images/item.png" alt="millennium pendant" />
+    </a>
+  </section>
+  <section class="footer-bottom">
+    <p>Yu-Gi-Oh! Forbidden Memories Database © 2021</p>
+  </section>
+</footer>
+
+<script type="text/javascript" src="public/js/awesomplete.min.js"></script>
+<script type="text/javascript" src="public/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="public/js/taffy.js"></script>
+<script type="text/javascript" src="data/cards.js"></script>
+<script type="text/javascript" src="data/equips.js"></script>
+<script type="text/javascript" src="data/results.js"></script>
+<script type="text/javascript" src="data/types_and_stars.js"></script>
+<script type="text/javascript" src="public/js/functions.js"></script>
+<script type="text/javascript" src="public/js/fusionSearch.js"></script>
 </body>
 
 </html>

@@ -1,10 +1,15 @@
 let inputCard = document.getElementById("cardname");
+let inputCard2 = document.getElementById("cardname2");
+let inputCard3 = document.getElementById("cardname3");
+let inputCard4 = document.getElementById("cardname4");
+let inputCard5 = document.getElementById("cardname5");
 let output = document.getElementById("output");
 let informationCard = document.getElementById("info-card");
 let searchMessage = document.getElementById("search-msg");
 let resetBtn = document.getElementById("reset-btn");
 let searchResultsBtn = document.getElementById("search-results-btn");
 let searchNameBtn = document.getElementById("search-name-btn");
+let searchFusionsInHandBtn = document.getElementById("search-fusions-in-hand-btn");
 let titlesH2 = ["Fusions", "Equips On", "Rituals"];
 
 function resultsClear() {
@@ -45,30 +50,70 @@ function createSideCard(card) {
 }
 
 // Initialize awesomplete
-var cardNameCompletion = new Awesomplete(inputCard, {
+let cardNameCompletion = new Awesomplete(inputCard, {
   list: card_db()
     .get()
     .map((c) => c.Name), // list is all the cards in the DB
   autoFirst: true, // The first item in the list is selected
   filter: Awesomplete.FILTER_STARTSWITH, // case insensitive from start of word
 });
-inputCard.onchange = function () {
+inputCard.onchange = function() {
   cardNameCompletion.select(); // select the currently highlighted item, e.g. if user tabs
+};
+let cardName2Completion = new Awesomplete(inputCard2, {
+  list: card_db()
+    .get()
+    .map((c) => c.Name), // list is all the cards in the DB
+  autoFirst: true, // The first item in the list is selected
+  filter: Awesomplete.FILTER_STARTSWITH, // case insensitive from start of word
+});
+inputCard2.onchange = function() {
+  cardName2Completion.select(); // select the currently highlighted item, e.g. if user tabs
+};
+let cardName3Completion = new Awesomplete(inputCard3, {
+  list: card_db()
+    .get()
+    .map((c) => c.Name), // list is all the cards in the DB
+  autoFirst: true, // The first item in the list is selected
+  filter: Awesomplete.FILTER_STARTSWITH, // case insensitive from start of word
+});
+inputCard3.onchange = function() {
+  cardName3Completion.select(); // select the currently highlighted item, e.g. if user tabs
+};
+let cardName4Completion = new Awesomplete(inputCard4, {
+  list: card_db()
+    .get()
+    .map((c) => c.Name), // list is all the cards in the DB
+  autoFirst: true, // The first item in the list is selected
+  filter: Awesomplete.FILTER_STARTSWITH, // case insensitive from start of word
+});
+inputCard4.onchange = function() {
+  cardName4Completion.select(); // select the currently highlighted item, e.g. if user tabs
+};
+let cardName5Completion = new Awesomplete(inputCard5, {
+  list: card_db()
+    .get()
+    .map((c) => c.Name), // list is all the cards in the DB
+  autoFirst: true, // The first item in the list is selected
+  filter: Awesomplete.FILTER_STARTSWITH, // case insensitive from start of word
+});
+inputCard5.onchange = function() {
+  cardName5Completion.select(); // select the currently highlighted item, e.g. if user tabs
 };
 
 /** Creates a div component with all the possibles fusions. */
 function fusesToHTML(fuselist, title) {
   let pTagList = fuselist
-    .map(function (fusion) {
+    .map(function(fusion) {
       let pTag = `<p class="card-textplus">${fusion.card1.Name}<strong> + </strong>${fusion.card2.Name}</p>`;
       if (fusion.result) {
         // Equips and Results don't have a result field
-        pTag += `<p class="card-result">Result: ${fusion.result.Name}</p>`;
+        pTag += `<p class="card-result">${createSideCard(fusion.result)}</p>`;
       }
       return pTag;
     })
     .join("\n");
-  let cardDiv = `<div class="card-fusion-equip"><h2 class='sub-title'>${title}</h2>${pTagList}</div>`;
+  let cardDiv = `<div class="card-fusion-equip"><h2 class="sub-title">${title}</h2>${pTagList}</div>`;
   return cardDiv;
 }
 
@@ -97,6 +142,108 @@ function searchByName() {
   }
 }
 
+function searchFusionCombosForHand() {
+  let card1 = getCardByName(inputCard.value);
+  let card2 = getCardByName(inputCard2.value);
+  let card3 = getCardByName(inputCard3.value);
+  let card4 = getCardByName(inputCard4.value);
+  let card5 = getCardByName(inputCard5.value);
+
+  if (!card1) {
+    searchMessage.innerHTML = createHTMLDanger(inputCard.value);
+    return;
+  }
+  if (!card2) {
+    searchMessage.innerHTML = createHTMLDanger(inputCard2.value);
+    return;
+  }
+  if (!card3) {
+    searchMessage.innerHTML = createHTMLDanger(inputCard3.value);
+    return;
+  }
+  if (!card4) {
+    searchMessage.innerHTML = createHTMLDanger(inputCard4.value);
+    return;
+  }
+  if (!card5) {
+    searchMessage.innerHTML = createHTMLDanger(inputCard5.value);
+    return;
+  }
+  let fusionsInHand = [];
+  card1.Fusions.map((i) => {
+    if (i._card2 === card2.Id) {
+      fusionsInHand.push({ card1: card1, card2: card2, result: getCardById(i._result) });
+    }
+    if (i._card2 === card3.Id) {
+      fusionsInHand.push({ card1: card1, card2: card3, result: getCardById(i._result) });
+    }
+    if (i._card2 === card4.Id) {
+      fusionsInHand.push({ card1: card1, card2: card4, result: getCardById(i._result) });
+    }
+    if (i._card2 === card5.Id) {
+      fusionsInHand.push({ card1: card1, card2: card5, result: getCardById(i._result) });
+    }
+  });
+  card2.Fusions.map((i) => {
+    if (i._card2 === card1.Id) {
+      fusionsInHand.push({ card1: card2, card2: card1, result: getCardById(i._result) });
+    }
+    if (i._card2 === card3.Id) {
+      fusionsInHand.push({ card1: card2, card2: card3, result: getCardById(i._result) });
+    }
+    if (i._card2 === card4.Id) {
+      fusionsInHand.push({ card1: card2, card2: card4, result: getCardById(i._result) });
+    }
+    if (i._card2 === card5.Id) {
+      fusionsInHand.push({ card1: card2, card2: card5, result: getCardById(i._result) });
+    }
+  });
+  card3.Fusions.map((i) => {
+    if (i._card2 === card2.Id) {
+      fusionsInHand.push({ card1: card3, card2: card2, result: getCardById(i._result) });
+    }
+    if (i._card2 === card1.Id) {
+      fusionsInHand.push({ card1: card3, card2: card1, result: getCardById(i._result) });
+    }
+    if (i._card2 === card4.Id) {
+      fusionsInHand.push({ card1: card3, card2: card4, result: getCardById(i._result) });
+    }
+    if (i._card2 === card5.Id) {
+      fusionsInHand.push({ card1: card3, card2: card5, result: getCardById(i._result) });
+    }
+  });
+  card4.Fusions.map((i) => {
+    if (i._card2 === card2.Id) {
+      fusionsInHand.push({ card1: card4, card2: card2, result: getCardById(i._result) });
+    }
+    if (i._card2 === card3.Id) {
+      fusionsInHand.push({ card1: card4, card2: card3, result: getCardById(i._result) });
+    }
+    if (i._card2 === card1.Id) {
+      fusionsInHand.push({ card1: card4, card2: card1, result: getCardById(i._result) });
+    }
+    if (i._card2 === card5.Id) {
+      fusionsInHand.push({ card1: card4, card2: card5, result: getCardById(i._result) });
+    }
+  });
+  card5.Fusions.map((i) => {
+    if (i._card2 === card2.Id) {
+      fusionsInHand.push({ card1: card5, card2: card2, result: getCardById(i._result) });
+    }
+    if (i._card2 === card3.Id) {
+      fusionsInHand.push({ card1: card5, card2: card3, result: getCardById(i._result) });
+    }
+    if (i._card2 === card4.Id) {
+      fusionsInHand.push({ card1: card5, card2: card4, result: getCardById(i._result) });
+    }
+    if (i._card2 === card1.Id) {
+      fusionsInHand.push({ card1: card5, card2: card1, result: getCardById(i._result) });
+    }
+  });
+
+  output.innerHTML += fusesToHTML(fusionsInHand, titlesH2[0])
+}
+
 function searchForResult() {
   let card = getCardByName(inputCard.value);
   if (!card) {
@@ -117,7 +264,8 @@ function searchForResult() {
   }
 }
 
-searchNameBtn.onclick = function () {
+
+searchNameBtn.onclick = function() {
   let booleanResponse = checkInputValidation(inputCard);
   resultsClear();
   if (booleanResponse) {
@@ -128,7 +276,7 @@ searchNameBtn.onclick = function () {
   }
 };
 
-searchResultsBtn.onclick = function () {
+searchResultsBtn.onclick = function() {
   let booleanResponse = checkInputValidation(inputCard);
   resultsClear();
   if (booleanResponse) {
@@ -139,7 +287,29 @@ searchResultsBtn.onclick = function () {
   }
 };
 
-resetBtn.onclick = function () {
+resetBtn.onclick = function() {
   resultsClear();
   inputCard.value = "";
+  inputCard2.value = "";
+  inputCard3.value = "";
+  inputCard4.value = "";
+  inputCard5.value = "";
+};
+
+// create search fusions for hand!!
+searchFusionsInHandBtn.onclick = function() {
+  resultsClear();
+  let booleanResponse = checkInputValidation(inputCard)
+    && checkInputValidation(inputCard2)
+    && checkInputValidation(inputCard3)
+    && checkInputValidation(inputCard4)
+    && checkInputValidation(inputCard5);
+
+  if (booleanResponse) {
+    searchMessage.innerHTML = createHTMLDanger();
+    return;
+  } else {
+    searchFusionCombosForHand();
+  }
+
 };
