@@ -142,6 +142,31 @@ function searchByName() {
   }
 }
 
+function checkFusionsForCards(fusionForCard, compareCard, card1, card2, card3, card4) {
+  let fusionsInHand = [];
+  if (fusionForCard._card2 === card1.Id) {
+    let result = getCardById(fusionForCard._result);
+    fusionsInHand.push({ card1: compareCard, card2: card1, result: result });
+    result.Fusions.map(i => checkFusionsForCards(i, result, card2, card3, card4, getCardByName("Dark Hole")).forEach(fusion => fusionsInHand.push(fusion)));
+  }
+  if (fusionForCard._card2 === card2.Id) {
+    let result = getCardById(fusionForCard._result);
+    fusionsInHand.push({ card1: compareCard, card2: card2, result: result });
+    result.Fusions.map(i => checkFusionsForCards(i, result, card1, card3, card4, getCardByName("Dark Hole")).forEach(fusion => fusionsInHand.push(fusion)));
+  }
+  if (fusionForCard._card2 === card3.Id) {
+    let result = getCardById(fusionForCard._result);
+    fusionsInHand.push({ card1: compareCard, card2: card3, result: result });
+    result.Fusions.map(i => checkFusionsForCards(i, result, card1, card2, card4, getCardByName("Dark Hole")).forEach(fusion => fusionsInHand.push(fusion)));
+  }
+  if (fusionForCard._card2 === card4.Id) {
+    let result = getCardById(fusionForCard._result);
+    fusionsInHand.push({ card1: compareCard, card2: card4, result: result });
+    result.Fusions.map(i => checkFusionsForCards(i, result, card1, card3, card2, getCardByName("Dark Hole")).forEach(fusion => fusionsInHand.push(fusion)));
+  }
+  return fusionsInHand;
+}
+
 function searchFusionCombosForHand() {
   let card1 = getCardByName(inputCard.value);
   let card2 = getCardByName(inputCard2.value);
@@ -171,74 +196,19 @@ function searchFusionCombosForHand() {
   }
   let fusionsInHand = [];
   card1.Fusions.map((i) => {
-    if (i._card2 === card2.Id) {
-      fusionsInHand.push({ card1: card1, card2: card2, result: getCardById(i._result) });
-    }
-    if (i._card2 === card3.Id) {
-      fusionsInHand.push({ card1: card1, card2: card3, result: getCardById(i._result) });
-    }
-    if (i._card2 === card4.Id) {
-      fusionsInHand.push({ card1: card1, card2: card4, result: getCardById(i._result) });
-    }
-    if (i._card2 === card5.Id) {
-      fusionsInHand.push({ card1: card1, card2: card5, result: getCardById(i._result) });
-    }
+    checkFusionsForCards(i, card1, card2, card3, card4, card5).forEach(cheese => fusionsInHand.push(cheese));
   });
   card2.Fusions.map((i) => {
-    if (i._card2 === card1.Id) {
-      fusionsInHand.push({ card1: card2, card2: card1, result: getCardById(i._result) });
-    }
-    if (i._card2 === card3.Id) {
-      fusionsInHand.push({ card1: card2, card2: card3, result: getCardById(i._result) });
-    }
-    if (i._card2 === card4.Id) {
-      fusionsInHand.push({ card1: card2, card2: card4, result: getCardById(i._result) });
-    }
-    if (i._card2 === card5.Id) {
-      fusionsInHand.push({ card1: card2, card2: card5, result: getCardById(i._result) });
-    }
+    checkFusionsForCards(i, card2, card1, card3, card4, card5).forEach(cheese => fusionsInHand.push(cheese));
   });
   card3.Fusions.map((i) => {
-    if (i._card2 === card2.Id) {
-      fusionsInHand.push({ card1: card3, card2: card2, result: getCardById(i._result) });
-    }
-    if (i._card2 === card1.Id) {
-      fusionsInHand.push({ card1: card3, card2: card1, result: getCardById(i._result) });
-    }
-    if (i._card2 === card4.Id) {
-      fusionsInHand.push({ card1: card3, card2: card4, result: getCardById(i._result) });
-    }
-    if (i._card2 === card5.Id) {
-      fusionsInHand.push({ card1: card3, card2: card5, result: getCardById(i._result) });
-    }
+    checkFusionsForCards(i, card3, card1, card2, card4, card5).forEach(cheese => fusionsInHand.push(cheese));
   });
   card4.Fusions.map((i) => {
-    if (i._card2 === card2.Id) {
-      fusionsInHand.push({ card1: card4, card2: card2, result: getCardById(i._result) });
-    }
-    if (i._card2 === card3.Id) {
-      fusionsInHand.push({ card1: card4, card2: card3, result: getCardById(i._result) });
-    }
-    if (i._card2 === card1.Id) {
-      fusionsInHand.push({ card1: card4, card2: card1, result: getCardById(i._result) });
-    }
-    if (i._card2 === card5.Id) {
-      fusionsInHand.push({ card1: card4, card2: card5, result: getCardById(i._result) });
-    }
+    checkFusionsForCards(i, card4, card1, card2, card3, card5).forEach(cheese => fusionsInHand.push(cheese));
   });
   card5.Fusions.map((i) => {
-    if (i._card2 === card2.Id) {
-      fusionsInHand.push({ card1: card5, card2: card2, result: getCardById(i._result) });
-    }
-    if (i._card2 === card3.Id) {
-      fusionsInHand.push({ card1: card5, card2: card3, result: getCardById(i._result) });
-    }
-    if (i._card2 === card4.Id) {
-      fusionsInHand.push({ card1: card5, card2: card4, result: getCardById(i._result) });
-    }
-    if (i._card2 === card1.Id) {
-      fusionsInHand.push({ card1: card5, card2: card1, result: getCardById(i._result) });
-    }
+    checkFusionsForCards(i, card5, card1, card3, card4, card2).forEach(cheese => fusionsInHand.push(cheese));
   });
 
   output.innerHTML += fusesToHTML(fusionsInHand, titlesH2[0])
